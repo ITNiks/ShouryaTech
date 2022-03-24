@@ -1,0 +1,84 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="STDemo_DBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Device">
+    <Key>
+      <PropertyRef Name="DeviceID" />
+    </Key>
+    <Property Name="DeviceID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="VehicleInfoes" Relationship="Self.FK__VehicleIn__Devic__15502E78" FromRole="Device" ToRole="VehicleInfo" />
+  </EntityType>
+  <EntityType Name="UserInfo">
+    <Key>
+      <PropertyRef Name="UserID" />
+    </Key>
+    <Property Name="UserID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="MobileNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Organization" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="Address" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+    <Property Name="EmailAddress" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Location" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="CreateDate" Type="DateTime" Precision="3" />
+    <Property Name="IsActive" Type="Boolean" />
+    <NavigationProperty Name="VehicleInfoes" Relationship="Self.FK__VehicleIn__UserI__164452B1" FromRole="UserInfo" ToRole="VehicleInfo" />
+  </EntityType>
+  <EntityType Name="VehicleInfo">
+    <Key>
+      <PropertyRef Name="VehicleNumber" />
+    </Key>
+    <Property Name="VehicleNumber" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="VehicleType" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="ChassisNumber" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="EngineNumber" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="ManufacturingYear" Type="String" MaxLength="4" FixedLength="false" Unicode="false" />
+    <Property Name="LoadCarryingCapacity" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="MakeOfVehicle" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="ModelNumber" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="BodyType" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="OrganizationName" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="DeviceID" Type="Int32" />
+    <Property Name="UserID" Type="Int32" />
+    <Property Name="CreateDate" Type="DateTime" Precision="3" />
+    <Property Name="IsActive" Type="Boolean" />
+    <NavigationProperty Name="Device" Relationship="Self.FK__VehicleIn__Devic__15502E78" FromRole="VehicleInfo" ToRole="Device" />
+    <NavigationProperty Name="UserInfo" Relationship="Self.FK__VehicleIn__UserI__164452B1" FromRole="VehicleInfo" ToRole="UserInfo" />
+  </EntityType>
+  <Association Name="FK__VehicleIn__Devic__15502E78">
+    <End Role="Device" Type="Self.Device" Multiplicity="0..1" />
+    <End Role="VehicleInfo" Type="Self.VehicleInfo" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Device">
+        <PropertyRef Name="DeviceID" />
+      </Principal>
+      <Dependent Role="VehicleInfo">
+        <PropertyRef Name="DeviceID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__VehicleIn__UserI__164452B1">
+    <End Role="UserInfo" Type="Self.UserInfo" Multiplicity="0..1" />
+    <End Role="VehicleInfo" Type="Self.VehicleInfo" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserInfo">
+        <PropertyRef Name="UserID" />
+      </Principal>
+      <Dependent Role="VehicleInfo">
+        <PropertyRef Name="UserID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="STDemo_DBEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Devices" EntityType="Self.Device" />
+    <EntitySet Name="UserInfoes" EntityType="Self.UserInfo" />
+    <EntitySet Name="VehicleInfoes" EntityType="Self.VehicleInfo" />
+    <AssociationSet Name="FK__VehicleIn__Devic__15502E78" Association="Self.FK__VehicleIn__Devic__15502E78">
+      <End Role="Device" EntitySet="Devices" />
+      <End Role="VehicleInfo" EntitySet="VehicleInfoes" />
+    </AssociationSet>
+    <AssociationSet Name="FK__VehicleIn__UserI__164452B1" Association="Self.FK__VehicleIn__UserI__164452B1">
+      <End Role="UserInfo" EntitySet="UserInfoes" />
+      <End Role="VehicleInfo" EntitySet="VehicleInfoes" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
